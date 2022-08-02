@@ -3,7 +3,238 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<html lang="en">
+<html>
+  <head>
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1
+      class="text-green text-center font-weight-bold"
+      style="font-size: 40px;"
+    >
+      Form Registration Using java script
+    </h1>
+
+    <h4 class="text-blue text-center font-weight-bold" style="font-size: 20px;">
+      Login
+    </h4>
+
+    <div class="container">
+      <br />
+
+      <div class="col-lg-5 m-auto d-block">
+        <form action="#" onsubmit="return validation()" class="bg-light">
+          <div class="form-group">
+            <label for="user" class="font-weight-regular"> FirstName </label>
+            <input
+              type="text"
+              name="user"
+              class="form-control"
+              id="user"
+              autocomplete="off"
+            />
+            <span id="username" > </span>
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-regular">LastName </label>
+            <input
+              type="password3"
+              name="pass"
+              class="form-control"
+              id="pass"
+              autocomplete="off"
+            />
+            <span id="passwords" >
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-regular">phone Number </label>
+            <input
+            type="phonenumber"
+            name="phone"
+            class="form-control"
+            id="phonenumber"
+            autocomplete="off"
+            pattern="[0-9]*"
+            />
+            <span id="phoneNumber1"></span>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-regular">password </label>
+            <input
+            type="password"
+            name="password1"
+            class="form-control"
+            id="password1"
+            />
+            <span id="password2"></span>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-regular">confirm Password </label>
+            <input
+            type="password"
+            name="confirmpass"
+            class="form-control"
+            id="confirmpass"
+            />
+            <span id="confirmpass1"></span>
+          </div>
+         <center> <input
+            type="submit"
+            name="submit"
+            value="Submit"
+            class="btn btn-success"
+            autocomplete="off"
+          /></center>
+       
+         
+        </form>
+
+        <br /><br />
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function validation() {
+        var user = document.getElementById("user").value;
+        var pass = document.getElementById("pass").value;
+        var phone=document.getElementById("phonenumber").value;
+        var password1=document.getElementById("password1").value;
+        var confrimpass=document.getElementById("confirmpass").value;
+
+       
+
+        if (user == "") {
+          document.getElementById("username").innerHTML =
+            " ** Please fill the username field";
+          return false;
+        }
+        if (user.length <= 2 || user.length > 20) {
+          document.getElementById("username").innerHTML =
+            " ** FirstName lenght must be between 2 and 20";
+          return false;
+        }
+        if (!isNaN(user)) {
+          document.getElementById("username").innerHTML =
+            " ** only characters are allowed";
+          return false;
+        }
+
+        if (pass == "") {
+          document.getElementById("passwords").innerHTML =
+            " ** Please fill the LastName field";
+          return false;
+        }
+        if (!isNaN(pass)) {
+          document.getElementById("passwords").innerHTML =
+            " ** only characters are allowed";
+          return false;
+        }
+       
+        if(phone=="")
+        {
+          document.getElementById("phoneNumber1").innerHTML=
+          "phonenumber should not be null";
+        }
+        if (phone.length <= 5 || phone.length >11) {
+          document.getElementById("phoneNumber1").innerHTML =
+            " ** Phone lenght must  10";
+            return false;
+         
+        }
+        if(password1=="")
+        {
+          document.getElementById("password2").innerHTML=
+          "password must be filled";
+          return false;
+        }
+        if(password1.length<=5 || password1.length>10)
+        {
+          document.getElementById("password2").innerHTML=
+          " password should be in between 5 and 10";
+          return false;
+        }
+        if(confrimpass==""){
+          document.getElementById("confirmpass1").innerHTML=
+          "confirmpassword should not be null";
+          return false;
+        }
+        if (password1 !== confrimpass) {
+          document.getElementById("confirmpass1").innerHTML =
+            " ** Password does not match the confirm password";
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<html lang="en">
 <head>
     
     <title>Table Decoration Items</title>
@@ -143,4 +374,4 @@
         </center>
 
 </body>
-</html>
+</html>*@
