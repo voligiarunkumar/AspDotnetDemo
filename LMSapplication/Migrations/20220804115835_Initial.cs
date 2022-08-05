@@ -2,7 +2,7 @@
 
 namespace LMSapplication.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,21 @@ namespace LMSapplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LoginDetails",
+                columns: table => new
+                {
+                    UserName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    ContactNumber = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoginDetails", x => x.UserName);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
                 {
@@ -31,6 +46,7 @@ namespace LMSapplication.Migrations
                     BookTitle = table.Column<string>(maxLength: 100, nullable: false),
                     NumberOfCopies = table.Column<string>(nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false),
+                    imageUrl = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -81,6 +97,9 @@ namespace LMSapplication.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "LoginDetails");
 
             migrationBuilder.DropTable(
                 name: "Products");

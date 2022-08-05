@@ -1,20 +1,26 @@
 ﻿@model LMSapplication.Models.Book
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = " BOOKDetails";
 }
 
-<h1>Details</h1>
+@*<h1>@ViewData["Title"]</h1>
 
 <div>
-    <h4>Book</h4>
+
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookTitle)
+        <dt class = "col-sm-2,">
+        @Html.DisplayNameFor(model => model.BookTitle)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.BookTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.imageUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.imageUrl)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NumberOfCopies)
@@ -37,6 +43,34 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.BookId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+   
+</div>*@
+
+  <div class="container">
+  <h1 class="text-muted">@ViewData["Title"]</h1>
+  <p class="text-primary">This is Modified Details Table Bootstrap</p>            
+  <table class="table table-dark table-striped">
+    <thead class="text-muted">
+      <tr class="te">
+        <th class="text-warning"> @Html.DisplayNameFor(model => model.BookTitle)</th>
+        <th class="text-warning"> @Html.DisplayNameFor(model => model.imageUrl)</th>
+        <th class="text-warning"> @Html.DisplayNameFor(model => model.NumberOfCopies)</th>
+        <th class="text-warning">  @Html.DisplayNameFor(model => model.IsEnabled)</th>
+        <th class="text-warning">@Html.DisplayNameFor(model => model.Category)</th>
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>@Html.DisplayFor(model => model.BookTitle)</td>
+        <td>@Html.DisplayFor(model => model.imageUrl)</td>
+        <td>@Html.DisplayFor(model => model.NumberOfCopies)</td>
+        <td>@Html.DisplayFor(model => model.IsEnabled)</td>
+        <td>@Html.DisplayFor(model => model.Category.CategoryName)</td>
+      </tr>
+    </tbody>
+
+  </table>
+   <a asp-action="Edit" asp-route-id="@Model.BookId" class=" btn btn-success">Edit</a> |
+    <a asp-action="Index" class=" btn btn-success">Back to List</a>
 </div>

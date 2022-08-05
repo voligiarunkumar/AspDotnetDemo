@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LMSapplication.Data;
 using LMSapplication.Models;
-
+using Microsoft.Extensions.Logging;
 namespace LMSapplication.Areas.Books.Controllers
 {
     [Area("Books")]
@@ -15,14 +15,20 @@ namespace LMSapplication.Areas.Books.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CategoriesController(ApplicationDbContext context)
+        private readonly ILogger<CategoriesController> _logger;
+
+        public CategoriesController(
+            ApplicationDbContext context,
+            ILogger<CategoriesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Books/Categories
         public async Task<IActionResult> Index()
         {
+            _logger.LogInformation("-------------- Retrieved all the Categories from the database");
             return View(await _context.Categories.ToListAsync());
         }
 
@@ -55,15 +61,29 @@ namespace LMSapplication.Areas.Books.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CatogoryTitle,CatogoryNumber,CategoryDescription")] Category category)
+        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CatogoryTitle,CatogoryNumber,CategoryDescription")] Category categoryModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Sanitize the data before consumption
+                categoryModel.CategoryName = categoryModel.CategoryName.Trim();
+
+                // Check for Duplicate CategoryName
+                bool isDuplicateFound
+                    = _context.Categories.Any(c => c.CategoryName == categoryModel.CategoryName);
+                if (isDuplicateFound)
+                {
+                    ModelState.AddModelError("CategoryName", "Duplicate! Another category with same name exists");
+                }
+               else 
+                {
+                    _context.Add(categoryModel);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+               
             }
-            return View(category);
+            return View(categoryModel);
         }
 
         // GET: Books/Categories/Edit/5

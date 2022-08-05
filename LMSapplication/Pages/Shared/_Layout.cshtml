@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">LMSapplication</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">E-CommerceApplication</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,15 +22,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
+                             <a  class="nav-link text-dark"asp-area="Books" asp-controller="LoginDetails" asp-action="Create">Login</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" >
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Manage</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" 
                                    asp-area="Books" asp-controller="Categories" asp-action="Index">Categories</a>
-                                <a class="dropdown-item"
-                                   asp-area="Books" asp-controller="Books" asp-action="Index">Books</a>
+                               @* <a class="dropdown-item"
+                                   asp-area="Books" asp-controller="Books" asp-action="Index">Books</a>*@
                                 <a class="dropdown-item"
                                    asp-area="Books" asp-controller="Products" asp-action="Index">Products</a>
                             </div>
@@ -40,7 +43,11 @@
                 </div>
             </div>
         </nav>
+       
     </header>
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

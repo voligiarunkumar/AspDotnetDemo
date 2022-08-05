@@ -11,17 +11,18 @@ namespace LMSapplication.Models
          virtual public int BookId { get; set; }
         [Required]
         [StringLength(100)]
-        public string BookTitle { get; set; }
+       virtual public string BookTitle { get; set; }
 
         [Required]
         [DefaultValue(1)]
-        public string NumberOfCopies { get; set; }
+       virtual public string NumberOfCopies { get; set; }
 
         [Required]
         [DefaultValue(false)]
-        public bool IsEnabled { get; set; }
+       virtual public bool IsEnabled { get; set; }
+        virtual public string imageUrl { get; set; } = null;
        //foreign key generation 
-        public int CategoryId { get; set; }
+       virtual public int CategoryId { get; set; }
         [ForeignKey (nameof(Book.CategoryId))]
         public Category Category { get; set; }
     }

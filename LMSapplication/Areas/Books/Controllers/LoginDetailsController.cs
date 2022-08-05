@@ -11,90 +11,85 @@ using LMSapplication.Models;
 namespace LMSapplication.Areas.Books.Controllers
 {
     [Area("Books")]
-    public class BooksController : Controller
+    public class LoginDetailsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public BooksController(ApplicationDbContext context)
+        public LoginDetailsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Books/Books
+        // GET: Books/LoginDetails
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Books.Include(b => b.Category);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.LoginDetails.ToListAsync());
         }
 
-        // GET: Books/Books/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Books/LoginDetails/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .Include(b => b.Category)
-                .FirstOrDefaultAsync(m => m.BookId == id);
-            if (book == null)
+            var loginDetails = await _context.LoginDetails
+                .FirstOrDefaultAsync(m => m.UserName == id);
+            if (loginDetails == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(loginDetails);
         }
 
-        // GET: Books/Books/Create
+        // GET: Books/LoginDetails/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return View();
         }
 
-        // POST: Books/Books/Create
+        // POST: Books/LoginDetails/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,BookTitle,NumberOfCopies,IsEnabled,CategoryId,imageUrl")] Book book)
+        public async Task<IActionResult> Create([Bind("UserName,FirstName,LastName,ContactNumber,Address")] LoginDetails loginDetails)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(book);
+                _context.Add(loginDetails);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", book.CategoryId);
-            return View(book);
+            return View(loginDetails);
         }
 
-        // GET: Books/Books/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Books/LoginDetails/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Books.FindAsync(id);
-            if (book == null)
+            var loginDetails = await _context.LoginDetails.FindAsync(id);
+            if (loginDetails == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", book.CategoryId);
-            return View(book);
+            return View(loginDetails);
         }
 
-        // POST: Books/Books/Edit/5
+        // POST: Books/LoginDetails/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,BookTitle,NumberOfCopies,IsEnabled,CategoryId,imageUrl")] Book book)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,FirstName,LastName,ContactNumber,Address")] LoginDetails loginDetails)
         {
-            if (id != book.BookId)
+            if (id != loginDetails.UserName)
             {
                 return NotFound();
             }
@@ -103,12 +98,12 @@ namespace LMSapplication.Areas.Books.Controllers
             {
                 try
                 {
-                    _context.Update(book);
+                    _context.Update(loginDetails);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(book.BookId))
+                    if (!LoginDetailsExists(loginDetails.UserName))
                     {
                         return NotFound();
                     }
@@ -119,43 +114,41 @@ namespace LMSapplication.Areas.Books.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", book.CategoryId);
-            return View(book);
+            return View(loginDetails);
         }
 
-        // GET: Books/Books/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Books/LoginDetails/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .Include(b => b.Category)
-                .FirstOrDefaultAsync(m => m.BookId == id);
-            if (book == null)
+            var loginDetails = await _context.LoginDetails
+                .FirstOrDefaultAsync(m => m.UserName == id);
+            if (loginDetails == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(loginDetails);
         }
 
-        // POST: Books/Books/Delete/5
+        // POST: Books/LoginDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var book = await _context.Books.FindAsync(id);
-            _context.Books.Remove(book);
+            var loginDetails = await _context.LoginDetails.FindAsync(id);
+            _context.LoginDetails.Remove(loginDetails);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BookExists(int id)
+        private bool LoginDetailsExists(string id)
         {
-            return _context.Books.Any(e => e.BookId == id);
+            return _context.LoginDetails.Any(e => e.UserName == id);
         }
     }
 }
